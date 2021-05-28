@@ -3,22 +3,26 @@
 # coding:utf-8
 
 import socket
-import json
-import struct
-import base64
-from multiprocessing import Process
+
+# import json
+# import struct
+# import base64
+# from multiprocessing import Process
 import Logger
 import threading
 import http.client
 import time
-import utility
+
+# import utility
 import df200
 import df400
 import do200
-import df702
-import dc500
+
+# import df702
+# import dc500
 import dt310
-import dh100
+
+# import dh100
 
 port_number = 9000
 max_clients = 10
@@ -44,6 +48,9 @@ def upload_data(attr, token):
             "Content-Type": "application/json",
             "Content-Length": str(len_attr),
         }
+        '''use your own http application domain name /ip/port replace below. of course if you use 
+           other type application, please change to the corresponsing protocol.
+        '''
         conn = http.client.HTTPConnection("www.dingtek.com:YYYY", timeout=10)
         conn.request("POST", str_url, attr, headers)
         r1 = conn.getresponse()
@@ -54,9 +61,9 @@ def upload_data(attr, token):
         # print("close socket in upload_data")
         log.logger.debug("upload_data: close socket in upload_data")
         # return 1
-    except Exception as e:
-        print(e)
-        log.logger.exception("upload_data" + e)
+    except Exception as ex:
+        print(ex)
+        log.logger.exception("upload_data", ex)
     finally:
         return 1
 
@@ -67,9 +74,9 @@ def upload_data(attr, token):
 def response_sensor(client, data):
     try:
         client.send(bytes(data, "utf-8"))
-    except Exception as e:
+    except Exception as ex:
         # print(e)
-        log.logger.exception(e)
+        log.logger.exception(ex)
 
 
 # handle client request
@@ -106,15 +113,24 @@ def handle_client(client, address):
 
         # parse and upload
         if data_type == "20":
-            attr_result, token_id = df200.parse_data_DF200(str_subreq.strip().upper())
+            attr_result, token_id = df200.DF200.parse_data_DF200(
+                str_subreq.strip().upper()
+            )
         elif data_type == "40":
-            attr_result, token_id = df400.parse_data_DF400(str_subreq.strip().upper())
+            attr_result, token_id = df400.DF400.parse_data_DF400(
+                str_subreq.strip().upper()
+            )
         elif data_type == "02":
-            attr_result, token_id = do200.parse_data_DO200(str_subreq.strip().upper())
+            attr_result, token_id = do200.DO200.parse_data_DO200(
+                str_subreq.strip().upper()
+            )
         # for other data_type, there are several module sensors, use different listening port to recognize them.
-        # else ......
+        elif data_type == "01":
+            attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
+        print("attr is"+attr_result+".token_id is "+token_id)
+        log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
         if attr_result != "" and token_id != "":
-            ret = upload_data(attr_result, token_id)
+            upload_data(attr_result, token_id)
             log.logger.debug("after upload data ")
         else:
             log.logger.debug("invalid data ")
