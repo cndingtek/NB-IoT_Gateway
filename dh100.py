@@ -27,7 +27,7 @@ class DH100(object):
                 data_battery_status = int(req_data[25:26])
                 data_volt = int(req_data[26:30], 16) / 100
                 data_rsrp_origin = req_data[30:38]
-                data_rsrp = int(utility.LEEE754_Hex_To_Float(data_rsrp_origin))
+                data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                 # data_timestamp=int(req_data[46:54],16)
                 data_frame_counter = int(req_data[38:42], 16)
                 # print("rsrp is "+str(data_rsrp))

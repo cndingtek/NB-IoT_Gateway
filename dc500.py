@@ -32,7 +32,7 @@ class DC500(object):
                 data_battery_alarm = int(req_data[16:18])
                 data_volt = int(req_data[18:22], 16) / 100
                 data_rsrp_origin = req_data[22:30]
-                data_rsrp = int(utility.LEEE754_Hex_To_Float(data_rsrp_origin))
+                data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                 data_timestamp = int(req_data[46:54], 16)
                 data_frame_counter = int(req_data[54:58], 16)
                 print("rsrp is " + str(data_rsrp))

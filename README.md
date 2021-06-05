@@ -19,7 +19,7 @@ check the .py file with the model name you want to integrate, there is parse_dat
 The NB_Server_Gateway.py include demo for server listening and tcp client incoming data from sensors. After packet parsed, upload_data function will be called to upload/forward to user application or any other 3rd party application in http. Of course, user can forward in other format like mqtt and etc based on their own requirements.
 
 # FAQ
-LEEE754_Hex_To_Float error in x64 system.
+IEEE754_Hex_To_Float error in x64 system.
 try to change 
 line 26:data_middle = struct.pack("q", data_first)
 to

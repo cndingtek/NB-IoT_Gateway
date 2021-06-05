@@ -26,7 +26,7 @@ class DF200(object):
                     data_level_status = int(req_data[20:22], 16)
                     data_rsrp_origin = req_data[22:30]
                     data_rsrp = int(
-                        utility.LEEE754_Hex_To_Float(data_rsrp_origin))
+                        utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                     # data_timestamp=int(req_data[46:54],16)
                     data_frame_counter = int(req_data[30:34], 16)
                     # print("rsrp is "+str(data_rsrp))

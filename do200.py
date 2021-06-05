@@ -28,9 +28,9 @@ class DO200(object):
                     data_signal = int(req_data[18:20], 16)
                     data_volt = int(req_data[20:24], 16) / 100
                     data_rsrp_origin = req_data[24:32]
-                    data_rsrp = int(utility.LEEE754_Hex_To_Float(data_rsrp_origin))
+                    data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                     data_snr_origin = req_data[32:40]
-                    data_snr = int(utility.LEEE754_Hex_To_Float(data_snr_origin))
+                    data_snr = int(utility.IEEE754_Hex_To_Float(data_snr_origin))
                     data_timestamp = int(req_data[44:52], 16)
                     data_magnet_x = int(req_data[52:56], 16)
                     if data_magnet_x >= 32768:
