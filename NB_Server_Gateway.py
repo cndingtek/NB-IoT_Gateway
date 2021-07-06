@@ -19,7 +19,7 @@ import df400
 import do200
 
 # import df702
-# import dc500
+import dc500
 import dt310
 
 # import dh100
@@ -126,7 +126,7 @@ def handle_client(client, address):
             )
         # for other data_type, there are several module sensors, use different listening port to recognize them.
         elif data_type == "01":
-            attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
+            attr_result, token_id = dc500.DC500.parse_data(str_subreq.strip().upper())
         print("attr is"+attr_result+".token_id is "+token_id)
         log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
         if attr_result != "" and token_id != "":

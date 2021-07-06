@@ -1,6 +1,6 @@
 import Logger
 import json
-import utility
+from utility import utility
 
 
 class DO200(object):
