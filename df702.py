@@ -1,6 +1,6 @@
 # ToDo: will add DF702 nb-iot support in near future.
 
-import utility
+from utility import utility
 import json
 
 class DF702(object):
