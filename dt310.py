@@ -2,9 +2,11 @@
 # change log Nov 16, 2020. change the created threading not close automatically.
 # coding:utf-8
 
-import utility
+from utility import utility
 import json
 
+attr_result = ""
+token_id = ""
 
 class DT310(object):
     # Func: parse data to attr
@@ -17,6 +19,7 @@ class DT310(object):
             data_len = int(req_data[8:10], 16)
             global attr_result
             global token_id
+            attribute = {}
             if (data_type == "01" or data_type == "02") and (data_len == 30):
                 token_id = req_data[43:58]
                 data_volt = int(req_data[10:14], 16) / 100

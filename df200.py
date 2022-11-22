@@ -1,5 +1,5 @@
 import json
-import utility
+from utility import utility
 
 
 class DF200(object):
