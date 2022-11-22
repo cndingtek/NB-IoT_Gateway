@@ -14,13 +14,14 @@ import http.client
 import time
 
 # import utility
-import df200
-import df400
-import do200
+#import df200
+#import df400
+#import do200
 
-# import df702
+import df702
+import df555
 # import dc500
-import dt310
+#import dt310
 
 # import dh100
 
@@ -51,7 +52,7 @@ def upload_data(attr, token):
         '''use your own http application domain name /ip/port replace below. of course if you use 
            other type application, please change to the corresponsing protocol.
         '''
-        conn = http.client.HTTPConnection("www.dingtek.com:YYYY", timeout=10)
+        conn = http.client.HTTPConnection("www.dingtek.com:6000", timeout=10)
         conn.request("POST", str_url, attr, headers)
         r1 = conn.getresponse()
         print("response is ", str(r1.getcode()))
@@ -112,21 +113,11 @@ def handle_client(client, address):
         log.logger.debug("packet is %s, data_type is DF%s0", str_subreq, data_type)
 
         # parse and upload
-        if data_type == "20":
-            attr_result, token_id = df200.DF200.parse_data_DF200(
-                str_subreq.strip().upper()
-            )
-        elif data_type == "40":
-            attr_result, token_id = df400.DF400.parse_data_DF400(
-                str_subreq.strip().upper()
-            )
-        elif data_type == "02":
-            attr_result, token_id = do200.DO200.parse_data_DO200(
-                str_subreq.strip().upper()
-            )
+
         # for other data_type, there are several module sensors, use different listening port to recognize them.
-        elif data_type == "01":
-            attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
+        if data_type == "01":
+            attr_result, token_id = df555.DF555.parse_data_DF555(str_subreq.strip().upper())
+            #attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
         print("attr is"+attr_result+".token_id is "+token_id)
         log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
         if attr_result != "" and token_id != "":
