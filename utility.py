@@ -1,13 +1,14 @@
 import struct
 class utility(object):
 
+    @staticmethod
     def hex_to_ascii(h):
         list_s = []
         for i in range(0, len(h), 2):
             list_s.append(chr(int(h[i:i + 2], 16)))
         return ''.join(list_s)
 
-
+    @staticmethod
     def ascii_to_hex(s):
         list_h = []
         for c in s:
@@ -18,6 +19,7 @@ class utility(object):
     # Func: convert hex data to float in IEEE754 format
     # Param: data_in: input data in hex#
     # return: outdata in float
+    @staticmethod
     def IEEE754_Hex_To_Float(data_in):
         # change order
         # print("data_in is "+data_in)
@@ -32,6 +34,7 @@ class utility(object):
     # Func: IEEE754->hex, big endian
     # Param: data_in, float data
     # Return: hex string
+    @staticmethod
     def IEEE754_Float_To_Hex(data_in):
         # change order
         data_temp = hex(struct.unpack("l", struct.pack(">f", data_in))[0])

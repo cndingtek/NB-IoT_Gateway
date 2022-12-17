@@ -2,7 +2,7 @@
 # change log Nov 20, 2020. change the created threading not close automatically.
 # coding:utf-8
 
-import utility
+from utility import utility
 import json
 
 
@@ -15,11 +15,12 @@ class DC500(object):
     # "800001021800000000016800C079C418658230475942465EF2C35100018" heart beat
     # "80000103350100071900031D0865823047594246003131342E3231352E3232312E39383B270F3B3030302E3030302E3030302E3030303B270F3B81" Param
     def parse_data(req_data):
+        attribue = {}
+        attr_result = ""
+        token_id = ""
         try:
             data_type = req_data[6:8]
             data_len = int(req_data[8:10], 16)
-            global attr_result
-            global token_id
             if (
                 data_type == "01"
                 or data_type == "02"

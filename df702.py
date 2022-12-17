@@ -1,6 +1,6 @@
 # ToDo: will add DF702 nb-iot support in near future.
 
-import utility
+from utility import utility
 import json
 
 class DF702(object):
@@ -17,6 +17,7 @@ class DF702(object):
             data_len = int(req_data[8:10], 16)
             global attr_result
             global token_id
+
             if (data_len == len(req_data) / 2):
                 if (data_type == "01" or data_type == "02"):
                     if (data_len == 30):

@@ -2,7 +2,7 @@
 # change log Nov 26, 2020. change the created threading not close automatically.
 # coding:utf-8
 
-import utility
+from utility import utility
 import json
 
 
