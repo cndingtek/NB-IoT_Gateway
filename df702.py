@@ -17,7 +17,6 @@ class DF702(object):
             data_len = int(req_data[8:10], 16)
             global attr_result
             global token_id
-            req_data="800001021E0649001B00000101015F008054440000186882104303887681"
             if (data_len == len(req_data) / 2):
                 if (data_type == "01" or data_type == "02"):
                     if (data_len == 30):
@@ -32,7 +31,7 @@ class DF702(object):
                         data_battery_alarm = int(req_data[25:26], 16)
                         data_volt = int(req_data[26:30], 16) / 100
                         data_rsrp_origin = req_data[30:38]
-                        data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
+                        data_rsrp = int(utility.utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                         data_frame_counter = int(req_data[38:42], 16)
                         # print("rsrp is "+str(data_rsrp))
                         attribute = {
@@ -48,13 +47,13 @@ class DF702(object):
                             "frame_counter": data_frame_counter
                         }
                     else:
-                        token_id = req_data[43:58]
+                        token_id = req_data[59:74]
                         data_height = int(req_data[10:14], 16)
                         data_longitude_origin = req_data[16:24]
-                        data_longitude = utility.IEEE754_Hex_To_Float(data_longitude_origin)
+                        data_longitude = utility.utility.IEEE754_Hex_To_Float(data_longitude_origin)
                         data_longitude = ("%.6f" % data_longitude)
                         data_latitude_origin = req_data[24:32]
-                        data_latitude = utility.IEEE754_Hex_To_Float(data_latitude_origin)
+                        data_latitude = utility.utility.IEEE754_Hex_To_Float(data_latitude_origin)
                         data_latitude = ("%.6f" % data_latitude)
                         data_temperature = int(req_data[32:34], 16)
                         data_angle = int(req_data[36:38], 16) if (int(req_data[34:36], 16) == 0) else (
@@ -65,7 +64,7 @@ class DF702(object):
                         data_battery_alarm = int(req_data[41:42], 16)
                         data_volt = int(req_data[42:46], 16) / 100
                         data_rsrp_origin = req_data[46:54]
-                        data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
+                        data_rsrp = int(utility.utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                         data_frame_counter = int(req_data[54:58], 16)
                         # print("rsrp is "+str(data_rsrp))
                         attribute = {
