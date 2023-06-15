@@ -21,6 +21,7 @@ import time
 
 import df702
 import df555
+import df556
 # import dc500
 #import dt310
 
@@ -119,8 +120,13 @@ def handle_client(client, address):
         # for other data_type, there are several module sensors, use different listening port to recognize them.
 
         if data_type == "01":
-            attr_result, token_id = df555.DF555.parse_data_DF555(str_subreq.strip().upper())
+            attr_result, token_id = df702.DF702.parse_data_DF702(str_subreq.strip().upper())
+            #attr_result, token_id = df556.DF556.parse_data_DF556(str_subreq.strip().upper())
             #attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
+        else :
+            if data_type == "16":
+                attr_result, token_id = df556.DF556.parse_data_DF556(str_subreq.strip().upper())
+
         print("attr is"+attr_result+".token_id is "+token_id)
         log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
         if attr_result != "" and token_id != "":
