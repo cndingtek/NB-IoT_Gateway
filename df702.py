@@ -17,7 +17,7 @@ class DF702(object):
             data_len = int(req_data[8:10], 16)
             global attr_result
             global token_id
-            req_data="800001021E0649001B00000101015F008054440000186882104303887681"
+
             if (data_len == len(req_data) / 2):
                 if (data_type == "01" or data_type == "02"):
                     if (data_len == 30):
@@ -48,7 +48,7 @@ class DF702(object):
                             "frame_counter": data_frame_counter
                         }
                     else:
-                        token_id = req_data[43:58]
+                        token_id = req_data[59:74]
                         data_height = int(req_data[10:14], 16)
                         data_longitude_origin = req_data[16:24]
                         data_longitude = utility.utility.IEEE754_Hex_To_Float(data_longitude_origin)

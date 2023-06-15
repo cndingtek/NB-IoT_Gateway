@@ -18,7 +18,6 @@ import time
 #import df400
 #import do200
 
-
 import df702
 import df555
 import df556
@@ -121,8 +120,6 @@ def handle_client(client, address):
 
         if data_type == "01":
             attr_result, token_id = df702.DF702.parse_data_DF702(str_subreq.strip().upper())
-            #attr_result, token_id = df556.DF556.parse_data_DF556(str_subreq.strip().upper())
-            #attr_result, token_id = dt310.DT310.parse_data(str_subreq.strip().upper())
         else :
             if data_type == "16":
                 attr_result, token_id = df556.DF556.parse_data_DF556(str_subreq.strip().upper())
