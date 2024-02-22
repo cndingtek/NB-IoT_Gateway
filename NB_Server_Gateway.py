@@ -21,6 +21,8 @@ import time
 import df702
 import df555
 import df556
+import do201
+import do202
 # import dc500
 #import dt310
 
@@ -117,12 +119,14 @@ def handle_client(client, address):
         # parse and upload
 
         # for other data_type, there are several module sensors, use different listening port to recognize them.
-
+        # while test other model, please replace the data_type value "31" by the specific value as well as the parse function.
         if data_type == "01":
             attr_result, token_id = df702.DF702.parse_data_DF702(str_subreq.strip().upper())
         else :
-            if data_type == "16":
-                attr_result, token_id = df556.DF556.parse_data_DF556(str_subreq.strip().upper())
+            if data_type == "31":
+                attr_result, token_id = do201.DO201.parse_data_DO201(str_subreq.strip().upper())
+            else:
+                pass
 
         print("attr is"+attr_result+".token_id is "+token_id)
         log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
