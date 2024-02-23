@@ -65,7 +65,7 @@ class DF703(object):
                         data_battery_alarm = int(req_data[41:42], 16)
                         data_volt = int(req_data[42:46], 16) / 100
                         data_rsrp_origin = req_data[46:54]
-                        data_rsrp = int(utility.utility.IEEE754_Hex_To_Float(data_rsrp_origin))
+                        data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                         data_frame_counter = int(req_data[54:58], 16)
                         # print("rsrp is "+str(data_rsrp))
                         attribute = {
