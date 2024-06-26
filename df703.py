@@ -32,7 +32,7 @@ class DF703(object):
                         data_battery_alarm = int(req_data[25:26], 16)
                         data_volt = int(req_data[26:30], 16) / 100
                         data_rsrp_origin = req_data[30:38]
-                        data_rsrp = int(utility.utility.IEEE754_Hex_To_Float(data_rsrp_origin))
+                        data_rsrp = int(utility.IEEE754_Hex_To_Float(data_rsrp_origin))
                         data_frame_counter = int(req_data[38:42], 16)
                         # print("rsrp is "+str(data_rsrp))
                         attribute = {
@@ -47,14 +47,15 @@ class DF703(object):
                             "rsrp": data_rsrp,
                             "frame_counter": data_frame_counter
                         }
+                        attr_result = json.dumps(attribute)
                     else:
                         token_id = req_data[59:74]
                         data_height = int(req_data[10:14], 16)
                         data_longitude_origin = req_data[16:24]
-                        data_longitude = utility.utility.IEEE754_Hex_To_Float(data_longitude_origin)
+                        data_longitude = utility.IEEE754_Hex_To_Float(data_longitude_origin)
                         data_longitude = ("%.6f" % data_longitude)
                         data_latitude_origin = req_data[24:32]
-                        data_latitude = utility.utility.IEEE754_Hex_To_Float(data_latitude_origin)
+                        data_latitude = utility.IEEE754_Hex_To_Float(data_latitude_origin)
                         data_latitude = ("%.6f" % data_latitude)
                         data_temperature = int(req_data[32:34], 16)
                         data_angle = int(req_data[36:38], 16) if (int(req_data[34:36], 16) == 0) else (
@@ -127,7 +128,7 @@ if __name__ == "__main__":
         #test data of 02 type packet.
         #incomingData = "8000010126069201CD03E942EF2720421A00000000016E008027C40001186962703655111781"
         #test data of 03 type packet.
-        incomingData = "80000103410604180A1E4B1E1460047427709661010200003132302E39322E38392E3132323B23823B3135392E3133382E342E363B22B83B186962703655111781"
+        incomingData = "800001021E0649001B00000101015F008054440000186882104303887681"
         attr_result = DF703.parse_data_DF703(incomingData)        
     except Exception as e:
         print(e)
