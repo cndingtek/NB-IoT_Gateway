@@ -33,6 +33,7 @@ port_number = 9000
 max_clients = 10
 attr_result = ""
 token_id = ""
+clients = {}  # use dictionary to manage the sockets list with imei
 log = Logger.Logger("all.log", level="debug")
 
 
@@ -98,6 +99,7 @@ def handle_client(client, address):
         global attr_result
         request_str = ""
         global token_id
+        global clients
         find_result1 = -1
         while True:
             if not client._closed:
@@ -127,18 +129,30 @@ def handle_client(client, address):
                 attr_result, token_id = do201.DO201.parse_data_DO201(str_subreq.strip().upper())
             else:
                 pass
-
+        
         print("attr is"+attr_result+".token_id is "+token_id)
         log.logger.debug("attr is"+attr_result+".token_id is "+token_id)
         if attr_result != "" and token_id != "":
-            upload_data(attr_result, token_id)
+            clients[token_id] = client
+            #upload_data(attr_result, token_id)
+            #checking if the token_id included in the downlink command destination imei list. if yes, send downlink
+            #downlink_command = downlink_destination.get[token_id]
+            #if(downlink_command]!=None):
+            #    client.send(downlink_command)
+            #else:
+            #    pass
             log.logger.debug("after upload data ")
+            time.sleep(1)
+            client.close()
+            clients.pop(token_id,None)        
+            time.sleep(1)
+            log.logger.debug("close device %s connection ", token_id)
         else:
             log.logger.debug("invalid data ")
-        time.sleep(1)
-        client.close()
-        time.sleep(1)
-        log.logger.debug("close device connection ")
+            time.sleep(1)
+            client.close()        
+            time.sleep(1)
+            log.logger.debug("close unknow  connection ")
     except socket.timeout:
         print("time out")
         client.close()
@@ -147,7 +161,7 @@ def handle_client(client, address):
 if __name__ == "__main__":
     try:
         attr_result = ""
-        token_deviceid = ""
+        token_deviceid = ""        
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.bind(("0.0.0.0", port_number))
         server_socket.listen(max_clients)
